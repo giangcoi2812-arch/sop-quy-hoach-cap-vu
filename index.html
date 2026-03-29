@@ -1,0 +1,791 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quy trình Rà soát, Bổ sung Quy hoạch cấp Vụ — Bộ Tài chính</title>
+    <meta name="description" content="Quy trình rà soát, bổ sung quy hoạch cấp Vụ (VT, PVT) từ nguồn tại chỗ — Bộ Tài chính">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2b6cb0;
+            --primary-bg: #ebf4ff;
+            --accent: #c53030;
+            --accent-light: #fff5f5;
+            --success: #276749;
+            --success-bg: #f0fff4;
+            --warning: #c05621;
+            --warning-bg: #fffaf0;
+            --gray-50: #f7fafc;
+            --gray-100: #edf2f7;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e0;
+            --gray-500: #718096;
+            --gray-700: #4a5568;
+            --gray-800: #2d3748;
+            --gray-900: #1a202c;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+            --radius: 8px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--gray-800);
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8edf5 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2c5282 60%, var(--primary-light) 100%);
+            color: white;
+            padding: 40px 48px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .header-subtitle {
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .header h1 {
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+        .header-unit {
+            font-size: 15px;
+            opacity: 0.9;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+        .header-updated {
+            font-size: 12px;
+            opacity: 0.6;
+            margin-top: 12px;
+        }
+
+        /* SECTION CARDS */
+        .section {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+        .section-header {
+            background: var(--gray-50);
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .section-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .section-body {
+            padding: 24px;
+        }
+
+        /* TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+        thead th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        thead th:first-child { border-radius: 6px 0 0 0; }
+        thead th:last-child { border-radius: 0 6px 0 0; }
+        tbody td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--gray-100);
+            vertical-align: top;
+        }
+        tbody tr:hover { background: var(--gray-50); }
+        tbody tr:last-child td { border-bottom: none; }
+
+        .info-table thead th { background: var(--primary-light); }
+
+        /* STEP NUMBER */
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        /* PROCESS TABLE */
+        .process-table { font-size: 13px; }
+        .process-table thead th { font-size: 12px; }
+        .process-table td { line-height: 1.6; }
+        .process-table td:first-child { text-align: center; width: 50px; }
+        .process-table td:nth-child(2) { font-weight: 600; color: var(--primary); min-width: 180px; }
+        .process-table td:nth-child(3) { min-width: 300px; }
+
+        /* MERMAID DIAGRAM */
+        .diagram-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 24px 12px;
+            overflow-x: auto;
+        }
+
+        /* NOTES */
+        .note {
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            margin: 12px 0;
+            font-size: 13.5px;
+            line-height: 1.7;
+        }
+        .note-warning {
+            background: var(--warning-bg);
+            border-left: 4px solid var(--warning);
+        }
+        .note-warning .note-title { color: var(--warning); }
+        .note-info {
+            background: var(--primary-bg);
+            border-left: 4px solid var(--primary-light);
+        }
+        .note-info .note-title { color: var(--primary-light); }
+        .note-danger {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+        }
+        .note-danger .note-title { color: var(--accent); }
+        .note-title {
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11.5px;
+            font-weight: 600;
+        }
+        .badge-blue { background: var(--primary-bg); color: var(--primary); }
+        .badge-green { background: var(--success-bg); color: var(--success); }
+        .badge-red { background: var(--accent-light); color: var(--accent); }
+
+        /* TIMELINE */
+        .timeline-list {
+            list-style: none;
+            padding: 0;
+        }
+        .timeline-list li {
+            padding: 8px 0 8px 24px;
+            position: relative;
+            font-size: 13.5px;
+        }
+        .timeline-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-light);
+            border-radius: 50%;
+        }
+        .timeline-list li + li::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: -6px;
+            width: 2px;
+            height: 18px;
+            background: var(--gray-300);
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--gray-500);
+            font-size: 12px;
+        }
+        .footer strong { color: var(--gray-700); }
+
+        /* PRINT STYLES */
+        @media print {
+            body { background: white; }
+            .container { padding: 0; max-width: 100%; }
+            .header { border-radius: 0; box-shadow: none; }
+            .section { box-shadow: none; break-inside: avoid; }
+            .diagram-wrapper { page-break-inside: avoid; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 12px; }
+            .header { padding: 24px; }
+            .header h1 { font-size: 20px; }
+            .section-body { padding: 16px; }
+            table { font-size: 12px; }
+            .process-table td:nth-child(3),
+            .process-table td:nth-child(4),
+            .process-table td:nth-child(5) { min-width: unset; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-subtitle">Bộ Tài chính — Các Vụ thuộc Bộ</div>
+        <h1>QUY TRÌNH RÀ SOÁT, BỔ SUNG<br>QUY HOẠCH CẤP VỤ — NGUỒN TẠI CHỖ</h1>
+        <div class="header-unit">Dành cho công chức phụ trách tổ chức cán bộ tại các Vụ thuộc Bộ</div>
+        <div class="header-updated">Cập nhật lần cuối: 29/03/2026</div>
+    </div>
+
+    <!-- THÔNG TIN CHUNG -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">📋</div>
+            <h2>Thông tin chung</h2>
+        </div>
+        <div class="section-body">
+            <table class="info-table">
+                <thead><tr><th style="width:220px">Thông tin</th><th>Nội dung</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Đơn vị</strong></td><td>Các Vụ thuộc Bộ Tài chính</td></tr>
+                    <tr><td><strong>Đặc điểm</strong></td><td>Vụ thuộc Bộ</td></tr>
+                    <tr><td><strong>Chức danh QH</strong></td><td><strong>Vụ trưởng, Phó Vụ trưởng</strong> và tương đương</td></tr>
+                    <tr><td><strong>Phân loại nguồn</strong></td><td>Nguồn nhân sự <strong>tại chỗ</strong> (CC đang công tác tại đơn vị) — phối hợp Vụ TCCB</td></tr>
+                    <tr><td><strong>Tần suất</strong></td><td>1–2 lần/năm (Quý I, hoàn thành trước tháng 6)</td></tr>
+                    <tr><td><strong>Căn cứ pháp lý</strong></td><td>
+                        <span class="badge badge-blue">QĐ 377-QĐ/TW</span>
+                        <span class="badge badge-blue">HD 45-HD/BTCTW</span>
+                        <span class="badge badge-blue">QĐ 438/QĐ-BTC</span>
+                        <span class="badge badge-blue">QĐ 1528/QĐ-BTC</span>
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- PHÂN CẤP THẨM QUYỀN -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">⚖️</div>
+            <h2>Phân cấp thẩm quyền</h2>
+        </div>
+        <div class="section-body">
+            <table>
+                <thead><tr><th>Nội dung</th><th>Thẩm quyền</th><th style="width:200px">Căn cứ</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Phê duyệt chủ trương</strong> QH cấp VT, PVT</td><td><strong>Bộ trưởng</strong> (Ban TV ĐU BTC quyết nghị — VT; Vụ TCCB tham mưu — PVT)</td><td>QĐ 1528, Điều 5, khoản 2.6</td></tr>
+                    <tr><td><strong>Ký QĐ phê duyệt</strong> QH cấp VT/PVT</td><td><strong>Bộ trưởng</strong> (VT) / <strong>VT Vụ TCCB</strong> thừa lệnh (PVT)</td><td>QĐ 1528, Điều 5, khoản 2.5, 2.6</td></tr>
+                    <tr><td><strong>Tham mưu, tổ chức quy trình</strong></td><td>CC phụ trách TCCB tại Vụ — phối hợp Vụ TCCB</td><td>QĐ 438, Điều 12</td></tr>
+                    <tr><td><strong>Chủ trì hội nghị</strong></td><td><strong>Đại diện LĐ Bộ / LĐ Vụ TCCB</strong> chủ trì (QH cấp VT). VT đơn vị chủ trì nếu QH cấp PVT</td><td>QĐ 438, Điều 12, khoản 2</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SƠ ĐỒ QUY TRÌNH -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">🔄</div>
+            <h2>Sơ đồ quy trình tổng thể</h2>
+        </div>
+        <div class="diagram-wrapper">
+            <svg viewBox="0 0 800 1100" xmlns="http://www.w3.org/2000/svg" style="max-width:700px; width:100%; height:auto;">
+                <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a5568"/>
+                    </marker>
+                    <filter id="shadow"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.1"/></filter>
+                    <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2b6cb0"/><stop offset="100%" stop-color="#1a365d"/></linearGradient>
+                    <linearGradient id="gGray" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#718096"/><stop offset="100%" stop-color="#4a5568"/></linearGradient>
+                </defs>
+                <style>
+                    .box { rx:8; filter:url(#shadow); }
+                    .lbl { font-family:Inter,sans-serif; fill:#fff; text-anchor:middle; }
+                    .lbl-b { font-size:12px; font-weight:700; }
+                    .lbl-s { font-size:10px; }
+                    .lbl-dark { fill:#1a365d; }
+                    .conn { stroke:#4a5568; stroke-width:1.5; fill:none; marker-end:url(#arrow); }
+                    .edge-lbl { font-family:Inter,sans-serif; font-size:10px; fill:#4a5568; font-weight:600; }
+                </style>
+
+                <!-- Bước 1 -->
+                <rect class="box" x="250" y="10" width="300" height="48" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="400" y="30">Bước 1</text>
+                <text class="lbl lbl-s" x="400" y="46">Tiếp nhận chỉ đạo &amp; Chuẩn bị</text>
+                <line class="conn" x1="400" y1="58" x2="400" y2="78"/>
+
+                <!-- Bước 2 -->
+                <rect class="box" x="250" y="78" width="300" height="48" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="400" y="98">Bước 2</text>
+                <text class="lbl lbl-s" x="400" y="114">Rà soát — đối chiếu QH cũ</text>
+                <line class="conn" x1="400" y1="126" x2="400" y2="150"/>
+
+                <!-- Bước 3 (Decision) -->
+                <polygon points="400,150 530,195 400,240 270,195" fill="#ebf4ff" stroke="#2b6cb0" stroke-width="2" filter="url(#shadow)"/>
+                <text class="lbl lbl-b lbl-dark" x="400" y="190">Bước 3: Còn chỗ trống?</text>
+                <text class="lbl lbl-s lbl-dark" x="400" y="205">Đánh giá tổng thể</text>
+
+                <!-- Nhánh DỪNG -->
+                <line class="conn" x1="530" y1="195" x2="660" y2="195"/>
+                <text class="edge-lbl" x="580" y="188">Đủ</text>
+                <rect class="box" x="660" y="175" width="130" height="40" fill="#e53e3e"/>
+                <text class="lbl lbl-b" x="725" y="193">⬛ DỪNG</text>
+                <text class="lbl lbl-s" x="725" y="207">Báo cáo Vụ TCCB</text>
+
+                <!-- Nhánh tiếp tục -->
+                <line class="conn" x1="400" y1="240" x2="400" y2="270"/>
+                <text class="edge-lbl" x="420" y="258">Thiếu</text>
+
+                <!-- Bước 4 -->
+                <rect class="box" x="220" y="270" width="360" height="60" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="400" y="292">Bước 4: Họp LĐ Vụ + Lọc nguồn CC</text>
+                <text class="lbl lbl-s" x="400" y="308">VT ký Tờ trình gửi Bộ xin phê duyệt chủ trương</text>
+                <text class="lbl lbl-s" x="400" y="322">(qua Vụ TCCB)</text>
+                <line class="conn" x1="400" y1="330" x2="400" y2="355"/>
+
+                <!-- Chờ phê duyệt (Stadium shape) -->
+                <rect class="box" x="260" y="355" width="280" height="44" rx="22" fill="#ed8936"/>
+                <text class="lbl lbl-b" x="400" y="374">⏳ Chờ Bộ trưởng phê duyệt</text>
+                <text class="lbl lbl-s" x="400" y="390">chủ trương (qua Vụ TCCB)</text>
+                <line class="conn" x1="400" y1="399" x2="400" y2="425"/>
+
+                <!-- Bước 5 (CÔNG BỐ - blue) -->
+                <rect class="box" x="220" y="425" width="360" height="64" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="400" y="445">Bước 5: HN LĐ Vụ lần 1</text>
+                <text class="lbl lbl-s" x="400" y="461">Đưa ra &gt;50% triệu tập · Định hướng ≥30%</text>
+                <text class="lbl lbl-s" x="400" y="477">✅ CÔNG BỐ</text>
+                <line class="conn" x1="400" y1="489" x2="400" y2="515"/>
+
+                <!-- Bước 6 (KHÔNG công bố - gray) -->
+                <rect class="box" x="220" y="515" width="360" height="56" fill="url(#gGray)"/>
+                <text class="lbl lbl-b" x="400" y="535">Bước 6: HN Cán bộ chủ chốt</text>
+                <text class="lbl lbl-s" x="400" y="551">Giới thiệu &gt;50% có mặt · ❌ Không công bố</text>
+                <text class="lbl lbl-s" x="400" y="563"></text>
+                <line class="conn" x1="400" y1="571" x2="400" y2="597"/>
+
+                <!-- Bước 7 (KHÔNG công bố - gray) -->
+                <rect class="box" x="220" y="597" width="360" height="56" fill="url(#gGray)"/>
+                <text class="lbl lbl-b" x="400" y="617">Bước 7: HN LĐ mở rộng</text>
+                <text class="lbl lbl-s" x="400" y="633">Giới thiệu &gt;50% có mặt · ❌ Không công bố</text>
+                <line class="conn" x1="400" y1="653" x2="400" y2="679"/>
+
+                <!-- Bước 8 (CÔNG BỐ - blue) -->
+                <rect class="box" x="220" y="679" width="360" height="64" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="400" y="699">Bước 8: HN LĐ Vụ lần 2</text>
+                <text class="lbl lbl-s" x="400" y="715">Biểu quyết &gt;50% triệu tập · Lấy từ trên xuống</text>
+                <text class="lbl lbl-s" x="400" y="731">✅ CÔNG BỐ</text>
+                <line class="conn" x1="400" y1="743" x2="400" y2="769"/>
+
+                <!-- Bước 9 -->
+                <rect class="box" x="250" y="769" width="300" height="48" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="400" y="789">Bước 9</text>
+                <text class="lbl lbl-s" x="400" y="805">Lập hồ sơ trình Vụ TCCB</text>
+                <line class="conn" x1="400" y1="817" x2="400" y2="843"/>
+
+                <!-- Bước 10 -->
+                <rect class="box" x="250" y="843" width="300" height="48" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="400" y="863">Bước 10</text>
+                <text class="lbl lbl-s" x="400" y="879">Công khai &amp; Triển khai sau phê duyệt</text>
+
+                <!-- Legend -->
+                <rect x="20" y="940" width="16" height="16" rx="3" fill="#2b6cb0"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="42" y="953">Bước có CÔNG BỐ kết quả</text>
+                <rect x="220" y="940" width="16" height="16" rx="3" fill="#4a5568"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="242" y="953">Bước KHÔNG công bố</text>
+                <rect x="420" y="940" width="16" height="16" rx="10" fill="#ed8936"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="442" y="953">Cổng chờ phê duyệt</text>
+                <rect x="620" y="940" width="16" height="16" rx="3" fill="#e53e3e"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="642" y="953">Dừng quy trình</text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- QUY TRÌNH CHI TIẾT -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">📝</div>
+            <h2>Quy trình chi tiết 10 bước</h2>
+        </div>
+        <div class="section-body" style="overflow-x:auto;">
+            <table class="process-table">
+                <thead><tr><th>Bước</th><th>Nội dung</th><th>Mô tả</th><th>Đầu vào</th><th>Sản phẩm đầu ra</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><span class="step-num">1</span></td>
+                        <td>Tiếp nhận chỉ đạo &amp; chuẩn bị</td>
+                        <td>Nhận VB chỉ đạo rà soát QH từ Vụ TCCB (hoặc chủ động đề xuất). Thu thập danh sách QH cấp Phòng đã phê duyệt, hồ sơ CC, kết quả đánh giá xếp loại.</td>
+                        <td>VB chỉ đạo; DS QH đã phê duyệt; Hồ sơ CC; Kết quả xếp loại</td>
+                        <td><strong>Bản rà soát sơ bộ</strong>: Bảng danh sách QH cũ kèm thông tin cá nhân</td>
+                    </tr>
+                    <tr>
+                        <td><span class="step-num">2</span></td>
+                        <td>Rà soát — đối chiếu QH cũ</td>
+                        <td>Kiểm tra từng CC: (1) Đủ tuổi? (2) Xếp loại? (3) Kỷ luật? (4) Chuyển CT/nghỉ hưu? (5) Đã bổ nhiệm? → Phân thành 3 nhóm.</td>
+                        <td>Bản rà soát sơ bộ; Quy định tuổi QH (QĐ 438, Đ.8); Hồ sơ KL</td>
+                        <td><strong>3 danh sách</strong>: (1) Đương nhiên đưa ra; (2) Đề xuất đưa ra; (3) Duy trì QH</td>
+                    </tr>
+                    <tr>
+                        <td><span class="step-num">3</span></td>
+                        <td>Đánh giá tổng thể — Xác định nhu cầu</td>
+                        <td>Kiểm đếm: còn bao nhiêu "chỗ trống"? Kiểm tra cơ cấu (trẻ ≥15%, nữ ≥25%). <strong>Nếu đủ → DỪNG</strong>. Nếu thiếu → tiếp Bước 4.</td>
+                        <td>Bảng tổng hợp rà soát; QĐ 438, Đ.9</td>
+                        <td><strong>(A) Đủ → Báo cáo + DỪNG</strong>; hoặc <strong>(B) Thiếu → Chuyển Bước 4</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="step-num">4</span></td>
+                        <td>Họp LĐ Vụ + Rà soát nguồn CC</td>
+                        <td>Lọc CC đủ tiêu chuẩn, họp LĐ Vụ (VT + PVT) cho ý kiến. VT ký <strong>tờ trình gửi Bộ</strong> (qua Vụ TCCB) xin phê duyệt chủ trương. <em>Chờ phê duyệt trước khi sang Bước 5.</em></td>
+                        <td>Phương án B; Hồ sơ CC; Tiêu chuẩn QH</td>
+                        <td><strong>Biên bản họp LĐ Vụ</strong>; <strong>Tờ trình</strong> xin chủ trương; DS nguồn nhân sự</td>
+                    </tr>
+                    <tr style="background:var(--primary-bg);">
+                        <td><span class="step-num" style="background:var(--primary-light)">5</span></td>
+                        <td>HN Tập thể LĐ Vụ (Lần 1) <span class="badge badge-green">✅ Công bố</span></td>
+                        <td>Đại diện LĐ Bộ/LĐ Vụ TCCB chủ trì. Thành phần: VT + tất cả PVT (≥2/3 triệu tập). Bỏ phiếu đưa ra (&gt;50% triệu tập); Phiếu định hướng (≥30% triệu tập).</td>
+                        <td>VB phê duyệt chủ trương; Kết quả rà soát; DS nguồn CC; Phiếu in sẵn</td>
+                        <td>BB HN + Kiểm phiếu; DS đưa ra; <strong>DS nhân sự mới ≥30%</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="step-num" style="background:var(--gray-700)">6</span></td>
+                        <td>HN Cán bộ chủ chốt <span class="badge badge-red">❌ Không công bố</span></td>
+                        <td>LĐ Vụ + cấp ủy + TP + PTP + trưởng TC CT-XH (≥2/3 triệu tập). Vụ không có phòng hoặc &lt;30 CC → toàn thể đơn vị. Phiếu giới thiệu kín. Ngưỡng: <strong>&gt;50% có mặt</strong>.</td>
+                        <td>DS nhân sự ≥30% (Bước 5); Phiếu giới thiệu; DS triệu tập theo Phòng</td>
+                        <td>BB HN + Kiểm phiếu; <strong>DS đạt &gt;50% có mặt</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="step-num" style="background:var(--gray-700)">7</span></td>
+                        <td>HN Tập thể LĐ mở rộng <span class="badge badge-red">❌ Không công bố</span></td>
+                        <td>VT + PVT + Cấp ủy + TP + PTP + Trưởng TC CT-XH. Thảo luận sâu, phiếu giới thiệu kín. Ngưỡng: <strong>&gt;50% có mặt</strong>.</td>
+                        <td>DS đạt ngưỡng (Bước 6); Phiếu giới thiệu</td>
+                        <td>BB HN + Kiểm phiếu; <strong>DS đạt &gt;50% có mặt</strong></td>
+                    </tr>
+                    <tr style="background:var(--primary-bg);">
+                        <td><span class="step-num" style="background:var(--primary-light)">8</span></td>
+                        <td>HN Tập thể LĐ Vụ (Lần 2) <span class="badge badge-green">✅ Công bố</span></td>
+                        <td>VT + PVT (≥2/3 triệu tập). Biểu quyết QH chính thức (phiếu kín). Ngưỡng: <strong>&gt;50% triệu tập, lấy từ trên xuống</strong>. Hòa phiếu → người đứng đầu quyết định <em>(xem lưu ý bên dưới)</em>.</td>
+                        <td>Kết quả Bước 5-7; Phiếu biểu quyết</td>
+                        <td>BB HN + Kiểm phiếu; <strong>Danh sách QH chính thức</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="step-num">9</span></td>
+                        <td>Lập hồ sơ trình Vụ TCCB</td>
+                        <td>Hoàn thiện: Tờ trình VT gửi Bộ trưởng; BB + kiểm phiếu 4 bước; DS nhân sự; SYLL 2C, tự nhận xét, nhận xét LĐ + cấp ủy. <em>Chưa có kết luận TCCT</em> (Vụ TCCB thực hiện sau).</td>
+                        <td>DS QH chính thức; BB các bước; Hồ sơ CC</td>
+                        <td><strong>Bộ hồ sơ hoàn chỉnh</strong> gửi Vụ TCCB</td>
+                    </tr>
+                    <tr>
+                        <td><span class="step-num">10</span></td>
+                        <td>Công khai &amp; Triển khai</td>
+                        <td>Nhận QĐ phê duyệt QH. Thông báo công khai. Lập kế hoạch đào tạo, bồi dưỡng (LLCT trong 24 tháng). Lưu hồ sơ. Báo cáo kết quả Quý II.</td>
+                        <td>QĐ phê duyệt QH (từ Vụ TCCB)</td>
+                        <td>Thông báo; KH đào tạo; Hồ sơ lưu; Báo cáo Vụ TCCB</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- LƯU Ý QUAN TRỌNG -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">⚠️</div>
+            <h2>Lưu ý quan trọng</h2>
+        </div>
+        <div class="section-body">
+
+            <!-- Thành phần HN -->
+            <h3 style="font-size:14px; color:var(--primary); margin-bottom:12px;">Thành phần hội nghị</h3>
+            <table style="margin-bottom:24px;">
+                <thead><tr><th>Bước</th><th>Thành phần</th><th>Ghi chú</th></tr></thead>
+                <tbody>
+                    <tr><td>Bước 5</td><td>VT + tất cả PVT</td><td>Bỏ phiếu đưa ra + định hướng</td></tr>
+                    <tr><td><strong>Bước 6</strong></td><td><strong>LĐ Vụ + cấp ủy + TP + PTP + trưởng TC CT-XH</strong></td><td>Vụ không có phòng/<30 CC → toàn thể</td></tr>
+                    <tr><td>Bước 7</td><td>VT + PVT + cấp ủy + TP + PTP + trưởng TC CT-XH</td><td>Vụ không có phòng: LĐ Vụ + cấp ủy</td></tr>
+                    <tr><td>Bước 8</td><td>VT + tất cả PVT</td><td>Biểu quyết chính thức</td></tr>
+                </tbody>
+            </table>
+
+            <!-- Ngưỡng phiếu -->
+            <h3 style="font-size:14px; color:var(--primary); margin-bottom:12px;">Ngưỡng phiếu</h3>
+            <table style="margin-bottom:24px;">
+                <thead><tr><th>Bước</th><th>Ngưỡng</th><th>Cơ sở tính</th></tr></thead>
+                <tbody>
+                    <tr><td>5 — Đưa ra</td><td>&gt; 50%</td><td>Tổng số <strong>triệu tập</strong></td></tr>
+                    <tr><td>5 — Định hướng</td><td>≥ 30%</td><td>Tổng số <strong>triệu tập</strong></td></tr>
+                    <tr><td>6 — Giới thiệu</td><td>&gt; 50%</td><td>Tổng số <strong>có mặt</strong></td></tr>
+                    <tr><td>7 — Giới thiệu</td><td>&gt; 50%</td><td>Tổng số <strong>có mặt</strong></td></tr>
+                    <tr><td>8 — Biểu quyết</td><td>&gt; 50%</td><td>Tổng số <strong>triệu tập</strong></td></tr>
+                </tbody>
+            </table>
+
+            <!-- Cảnh báo phân biệt -->
+            <div class="note note-danger">
+                <div class="note-title">⚠️ Phân biệt "có mặt" và "triệu tập"</div>
+                <p>Các đơn vị <strong>rất dễ nhầm lẫn</strong> giữa hai cơ sở tính phiếu:</p>
+                <ul style="margin:8px 0 0 20px;">
+                    <li><strong>Bước 6, 7</strong> (HN Cán bộ chủ chốt + HN LĐ mở rộng): Tính trên tổng số <strong>có mặt</strong></li>
+                    <li><strong>Bước 5, 8</strong> (HN LĐ Vụ lần 1 + lần 2): Tính trên tổng số <strong>triệu tập</strong></li>
+                </ul>
+                <p style="margin-top:6px; font-size:12px; color:var(--gray-500);">Căn cứ: QĐ 377 Phụ lục 3 Bước 2-3 và QĐ 438 Điều 12 Bước 2-3.</p>
+            </div>
+
+            <!-- Công bố -->
+            <h3 style="font-size:14px; color:var(--primary); margin:24px 0 12px;">Công bố kết quả</h3>
+            <table style="margin-bottom:24px;">
+                <thead><tr><th>Bước</th><th>Công bố?</th></tr></thead>
+                <tbody>
+                    <tr><td>5 (LĐ lần 1)</td><td><span class="badge badge-green">✅ Công bố</span></td></tr>
+                    <tr><td>6 (Cán bộ chủ chốt)</td><td><span class="badge badge-red">❌ Không</span></td></tr>
+                    <tr><td>7 (LĐ mở rộng)</td><td><span class="badge badge-red">❌ Không</span></td></tr>
+                    <tr><td>8 (LĐ lần 2)</td><td><span class="badge badge-green">✅ Công bố</span></td></tr>
+                </tbody>
+            </table>
+
+            <!-- Ghi chú hòa phiếu -->
+            <div class="note note-warning">
+                <div class="note-title">⚠️ Về nguyên tắc "người đứng đầu quyết định" khi hòa phiếu (Bước 8)</div>
+                <p>QĐ 438, Điều 12, Bước 4 quy định: <em>"Trường hợp ở cuối danh sách có từ 2 người trở lên có số phiếu bằng nhau trên 50% thì giao <strong>người đứng đầu</strong> xem xét, quyết định lựa chọn nhân sự."</em></p>
+                <p style="margin-top:10px;"><strong>⚠️ Điểm cần lưu ý:</strong> Bước 4 trong QĐ 438 áp dụng chung cho cả QH cấp Vụ lẫn QH cấp Phòng. Đối với QH cấp Vụ, "người đứng đầu" phải là Bộ trưởng. Vậy khi áp dụng cho QH cấp Phòng, CC phụ trách TCCB tại Vụ cần <strong>báo cáo Vụ TCCB</strong> để trình Bộ trưởng quyết định.</p>
+                <p style="margin-top:8px; font-weight:600;">→ Đối với QH cấp Vụ, "người đứng đầu" là <strong>Bộ trưởng</strong> — rõ ràng hơn cấp Phòng.</p>
+            </div>
+
+            <!-- Thời hạn -->
+            <h3 style="font-size:14px; color:var(--primary); margin:24px 0 12px;">Thời hạn thực hiện</h3>
+            <ul class="timeline-list">
+                <li><strong>15 ngày</strong> — Cấp có thẩm quyền xem xét, thông báo (kể từ khi nhận VB đề nghị)</li>
+                <li><strong>30 ngày</strong> — VT phải tiến hành quy trình (kể từ khi nhận VB cấp thẩm quyền)</li>
+                <li><strong>30–45 ngày làm việc</strong> — Hoàn thành rà soát + bổ sung + hồ sơ</li>
+                <li><strong>Quý II (chậm nhất tháng 6)</strong> — Báo cáo kết quả lên cấp trên</li>
+            </ul>
+
+        </div>
+    </div>
+
+    <!-- VÒNG PHẢN HỒI & CẢI TIẾN -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">🔄</div>
+            <h2>Vòng phản hồi & Cải tiến liên tục</h2>
+        </div>
+        <div class="section-body">
+
+            <div class="note note-info" style="margin-top:0;">
+                <p>SOP không phải viết một lần rồi xong. Quy trình thay đổi, văn bản mới ban hành, vướng mắc mới phát sinh — SOP phải cập nhật theo.</p>
+            </div>
+
+            <!-- Double-check -->
+            <h3 style="font-size:14px; color:var(--primary); margin:20px 0 12px;">Double-check: SOP có đạt yêu cầu ban đầu?</h3>
+            <p style="font-size:13px; margin-bottom:12px;">Sau mỗi đợt hoàn thành quy trình QH, CC phụ trách TCCB tự kiểm tra:</p>
+            <table style="margin-bottom:16px;">
+                <thead><tr><th style="width:30px">#</th><th>Câu hỏi kiểm tra</th><th style="width:50px">Đạt?</th><th>Nếu KHÔNG đạt</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Hồ sơ gửi Vụ TCCB có bị trả lại không?</td><td style="text-align:center">☐</td><td>→ Xem lại Bước 9 (hồ sơ thiếu gì)</td></tr>
+                    <tr><td>2</td><td>Có bước nào phải họp lại vì không đủ quorum (2/3)?</td><td style="text-align:center">☐</td><td>→ Xem lại cách triệu tập ở bước đó</td></tr>
+                    <tr><td>3</td><td>Có nhầm lẫn "có mặt" / "triệu tập" khi tính phiếu?</td><td style="text-align:center">☐</td><td>→ Quay lại phần Lưu ý, cập nhật hướng dẫn rõ hơn</td></tr>
+                    <tr><td><strong>4</strong></td><td><strong>Người mới nhận việc đọc SOP này có tự làm được không?</strong></td><td style="text-align:center">☐</td><td>→ <strong>Quay lại từ đầu</strong> — bổ sung chi tiết thao tác, giải thích WHY</td></tr>
+                    <tr><td>5</td><td>Có tình huống ngoại lệ phát sinh mà SOP chưa ghi?</td><td style="text-align:center">☐</td><td>→ Bổ sung vào phần Lưu ý hoặc bước tương ứng</td></tr>
+                </tbody>
+            </table>
+
+            <div class="note note-danger">
+                <div class="note-title">⚠️ Quy tắc quan trọng</div>
+                <p>Nếu câu 4 trả lời <strong>"KHÔNG"</strong> — tức SOP <strong>chưa đạt mục tiêu ban đầu</strong> (giúp CC mới tự triển khai mà không cần hỏi). Khi đó phải <strong>rà soát lại toàn bộ SOP</strong> trước khi sử dụng cho đợt tiếp theo.</p>
+            </div>
+
+            <!-- Review định kỳ -->
+            <h3 style="font-size:14px; color:var(--primary); margin:24px 0 12px;">Review định kỳ</h3>
+            <table style="margin-bottom:24px;">
+                <thead><tr><th>Thời điểm</th><th>Hành động</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Sau mỗi đợt QH</strong> (thường Quý I-II)</td><td>Ghi nhận vướng mắc → cập nhật SOP ngay</td></tr>
+                    <tr><td><strong>Khi có VB pháp lý mới</strong></td><td>Đối chiếu SOP với VB mới → điều chỉnh</td></tr>
+                    <tr><td><strong>Cuối năm</strong></td><td>Tổng rà soát SOP: còn phù hợp không? cần thay đổi gì?</td></tr>
+                </tbody>
+            </table>
+
+            <!-- Versioning -->
+            <h3 style="font-size:14px; color:var(--primary); margin:24px 0 12px;">Versioning (Đánh phiên bản)</h3>
+            <table style="margin-bottom:24px;">
+                <thead><tr><th style="width:80px">Phiên bản</th><th style="width:100px">Ngày</th><th>Nội dung thay đổi</th></tr></thead>
+                <tbody>
+                    <tr><td>v1.0</td><td>27/03/2026</td><td>Xây dựng SOP ban đầu (10 bước)</td></tr>
+                    <tr><td>v1.1</td><td>29/03/2026</td><td>Bổ sung nguyên tắc hòa phiếu, sơ đồ quy trình, sửa ngưỡng Bước 7, thêm vòng phản hồi</td></tr>
+                    <tr><td>—</td><td>—</td><td><em>(Ghi tiếp khi có cập nhật)</em></td></tr>
+                </tbody>
+            </table>
+
+            <!-- Chỉ số đo lường -->
+            <h3 style="font-size:14px; color:var(--primary); margin:24px 0 12px;">Chỉ số đo lường</h3>
+            <table>
+                <thead><tr><th>Chỉ số</th><th>Cách đo</th><th>Ngưỡng kỳ vọng</th></tr></thead>
+                <tbody>
+                    <tr><td>Thời gian hoàn thành</td><td>Số ngày từ Bước 1 → Bước 9</td><td><strong>≤ 45 ngày</strong> làm việc</td></tr>
+                    <tr><td>Hồ sơ bị trả lại</td><td>Số lần Vụ TCCB yêu cầu bổ sung</td><td><strong>0 lần</strong></td></tr>
+                    <tr><td>Triệu tập lại HN</td><td>Vì không đủ 2/3 quorum</td><td><strong>0 lần</strong></td></tr>
+                    <tr><td>CC mới tự làm được?</td><td>Pilot test: giao SOP cho CC chưa làm</td><td><strong>Tự làm</strong> không hỏi</td></tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- CHECKLIST HỒ SƠ -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">📎</div>
+            <h2>Checklist hồ sơ quy hoạch</h2>
+        </div>
+        <div class="section-body">
+            <div class="note note-info" style="margin-top:0;margin-bottom:16px;">
+                <p>Danh mục hồ sơ theo QĐ 438/QĐ-BTC, Điều 16. CC phụ trách TCCB kiểm tra trước khi gửi Vụ TCCB.</p>
+            </div>
+
+            <h3 style="font-size:14px; color:var(--primary); margin-bottom:12px;">Hồ sơ trình cấp có thẩm quyền (Bước 9)</h3>
+            <table style="margin-bottom:24px;">
+                <thead><tr><th>#</th><th>Loại giấy tờ</th><th>Mẫu</th><th>Ghi chú</th><th style="width:30px">✓</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Tờ trình + Biên bản kiểm phiếu</td><td>Mẫu 02A,B,C; Mẫu 03</td><td>Kèm bảng tổng hợp kết quả</td><td style="text-align:center">☐</td></tr>
+                    <tr><td>2</td><td>Sơ yếu lý lịch 2C</td><td>Theo mẫu QĐ</td><td>Ảnh 4x6, đóng dấu; <strong>≤ 6 tháng</strong></td><td style="text-align:center">☐</td></tr>
+                    <tr><td>3</td><td>Đánh giá, nhận xét 3 năm</td><td>—</td><td>Của cấp ủy, LĐ, cấp TQ; <strong>≤ 6 tháng</strong></td><td style="text-align:center">☐</td></tr>
+                    <tr><td>4</td><td>Nhận xét chi bộ/đảng ủy nơi CT</td><td>—</td><td><strong>≤ 6 tháng</strong></td><td style="text-align:center">☐</td></tr>
+                    <tr><td>5</td><td>Nhận xét cấp ủy nơi cư trú</td><td>—</td><td>Bản thân + gia đình; <strong>≤ 6 tháng</strong></td><td style="text-align:center">☐</td></tr>
+                    <tr><td>6</td><td>Bản tự nhận xét 3 năm</td><td>—</td><td>Cá nhân tự khai; <strong>≤ 6 tháng</strong></td><td style="text-align:center">☐</td></tr>
+                    <tr><td>7</td><td>Kết luận tiêu chuẩn CT</td><td>—</td><td><em>Nếu có — Vụ TCCB xử lý sau</em></td><td style="text-align:center">☐</td></tr>
+                    <tr><td>8</td><td>Kê khai tài sản, thu nhập</td><td>Mẫu hiện hành</td><td>Có ký xác nhận; <strong>≤ 6 tháng</strong></td><td style="text-align:center">☐</td></tr>
+                    <tr><td>9</td><td>Bản sao văn bằng, chứng chỉ</td><td>—</td><td>Có xác nhận cơ quan QL</td><td style="text-align:center">☐</td></tr>
+                    <tr><td>10</td><td>Giấy khám sức khỏe</td><td>—</td><td>CSYT có thẩm quyền; <strong>≤ 6 tháng</strong></td><td style="text-align:center">☐</td></tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size:14px; color:var(--primary); margin-bottom:12px;">Phiếu và biên bản tại các Hội nghị</h3>
+            <table>
+                <thead><tr><th>#</th><th>Loại văn bản</th><th>Mẫu QĐ 438</th><th>Bước sử dụng</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Phiếu giới thiệu/biểu quyết</td><td>Mẫu 01</td><td>Bước 5, 6, 7, 8</td></tr>
+                    <tr><td>2</td><td>Biên bản Hội nghị</td><td>Mẫu 02A</td><td>Bước 5, 6, 7, 8</td></tr>
+                    <tr><td>3</td><td>Biên bản kiểm phiếu</td><td>Mẫu 02B</td><td>Bước 5, 6, 7, 8</td></tr>
+                    <tr><td>4</td><td>Bảng tổng hợp kết quả</td><td>Mẫu 02C</td><td>Bước 9 (gộp)</td></tr>
+                    <tr><td>5</td><td>Tờ trình báo cáo</td><td>Mẫu 03</td><td>Bước 4, 9</td></tr>
+                    <tr><td>6</td><td>Thông báo cấp TQ</td><td>Mẫu 04</td><td>Sau phê duyệt</td></tr>
+                    <tr><td>7</td><td>CV lấy ý kiến cấp ủy</td><td>Mẫu 05</td><td>Hiệp y</td></tr>
+                    <tr><td>8</td><td>Tờ trình phê duyệt QH</td><td>Mẫu 06</td><td>Vụ TCCB trình Bộ</td></tr>
+                    <tr><td>9</td><td>QĐ phê duyệt + DS</td><td>Mẫu 07A,B</td><td>Kết quả cuối</td></tr>
+                    <tr><td>10</td><td>QĐ đưa ra + DS</td><td>Mẫu 08A,B</td><td>Nếu có</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- PHỤ LỤC MẪU BIỂU -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">📁</div>
+            <h2>Phụ lục: Mẫu biểu kèm theo</h2>
+        </div>
+        <div class="section-body">
+            <div class="note note-warning" style="margin-top:0;margin-bottom:16px;">
+                <div class="note-title">🔜 Sẽ bổ sung ở phiên bản v2.0</div>
+                <p>Các file mẫu biểu sẽ được đính kèm ở phiên bản tiếp theo. Hiện tại tham chiếu theo QĐ 438/QĐ-BTC.</p>
+            </div>
+            <table>
+                <thead><tr><th>Mẫu</th><th>Tên</th><th>Trạng thái</th></tr></thead>
+                <tbody>
+                    <tr><td>01</td><td>Phiếu giới thiệu / biểu quyết</td><td>🔜 <em>Sẽ bổ sung</em></td></tr>
+                    <tr><td>02A</td><td>Biên bản Hội nghị</td><td>🔜 <em>Sẽ bổ sung</em></td></tr>
+                    <tr><td>02B</td><td>Biên bản kiểm phiếu</td><td>🔜 <em>Sẽ bổ sung</em></td></tr>
+                    <tr><td>02C</td><td>Bảng tổng hợp kết quả kiểm phiếu</td><td>🔜 <em>Sẽ bổ sung</em></td></tr>
+                    <tr><td>03</td><td>Tờ trình báo cáo</td><td>🔜 <em>Sẽ bổ sung</em></td></tr>
+                    <tr><td>04–08</td><td>Thông báo, CV hiệp y, QĐ phê duyệt...</td><td>🔜 <em>Sẽ bổ sung</em></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p><strong>Tài liệu nội bộ</strong> — Xây dựng cho CC phụ trách TCCB tại các Vụ có cấp phòng thuộc Bộ Tài chính</p>
+        <p>Căn cứ: QĐ 438/QĐ-BTC (Điều 12) • QĐ 1528/QĐ-BTC (Điều 5, 9)</p>
+        <p style="margin-top:4px;">Phiên bản v1.1 · Cập nhật: 29/03/2026 · Tham khảo: <a href="https://sop-framework.vercel.app/" style="color:var(--primary-light)">SOP Framework v2.0 — Minh Đỗ</a></p>
+        <p style="margin-top:8px; font-weight:600; color:var(--gray-700);">Biên soạn: Hương Giang</p>
+    </div>
+
+</div>
+
+
+</body>
+</html>
