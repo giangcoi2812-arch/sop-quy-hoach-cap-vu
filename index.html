@@ -364,7 +364,7 @@
             <h2>Sơ đồ quy trình tổng thể</h2>
         </div>
         <div class="diagram-wrapper">
-            <svg viewBox="0 0 800 1100" xmlns="http://www.w3.org/2000/svg" style="max-width:700px; width:100%; height:auto;">
+            <svg viewBox="0 0 900 1300" xmlns="http://www.w3.org/2000/svg" style="max-width:800px; width:100%; height:auto;">
                 <defs>
                     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-auto">
                         <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a5568"/>
@@ -372,6 +372,7 @@
                     <filter id="shadow"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.1"/></filter>
                     <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2b6cb0"/><stop offset="100%" stop-color="#1a365d"/></linearGradient>
                     <linearGradient id="gGray" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#718096"/><stop offset="100%" stop-color="#4a5568"/></linearGradient>
+                    <linearGradient id="gGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38a169"/><stop offset="100%" stop-color="#276749"/></linearGradient>
                 </defs>
                 <style>
                     .box { rx:8; filter:url(#shadow); }
@@ -384,93 +385,118 @@
                 </style>
 
                 <!-- Bước 1 -->
-                <rect class="box" x="250" y="10" width="300" height="48" fill="url(#gBlue)"/>
-                <text class="lbl lbl-b" x="400" y="30">Bước 1</text>
-                <text class="lbl lbl-s" x="400" y="46">Tiếp nhận chỉ đạo &amp; Chuẩn bị</text>
-                <line class="conn" x1="400" y1="58" x2="400" y2="78"/>
+                <rect class="box" x="300" y="10" width="300" height="48" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="450" y="30">Bước 1</text>
+                <text class="lbl lbl-s" x="450" y="46">Tiếp nhận chỉ đạo &amp; Chuẩn bị</text>
+                <line class="conn" x1="450" y1="58" x2="450" y2="78"/>
 
                 <!-- Bước 2 -->
-                <rect class="box" x="250" y="78" width="300" height="48" fill="url(#gBlue)"/>
-                <text class="lbl lbl-b" x="400" y="98">Bước 2</text>
-                <text class="lbl lbl-s" x="400" y="114">Rà soát — đối chiếu QH cũ</text>
-                <line class="conn" x1="400" y1="126" x2="400" y2="150"/>
+                <rect class="box" x="270" y="78" width="360" height="56" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="450" y="98">Bước 2: Rà soát — đối chiếu QH cũ</text>
+                <text class="lbl lbl-s" x="450" y="114">→ 3 DS: Đương nhiên ra / Đề xuất ra / Duy trì</text>
+                <text class="lbl lbl-s" x="450" y="126"></text>
+                <line class="conn" x1="450" y1="134" x2="450" y2="160"/>
 
-                <!-- Bước 3 (Decision) -->
-                <polygon points="400,150 530,195 400,240 270,195" fill="#ebf4ff" stroke="#2b6cb0" stroke-width="2" filter="url(#shadow)"/>
-                <text class="lbl lbl-b lbl-dark" x="400" y="190">Bước 3: Còn chỗ trống?</text>
-                <text class="lbl lbl-s lbl-dark" x="400" y="205">Đánh giá tổng thể</text>
+                <!-- Bước 3 (Decision - 3 nhánh) -->
+                <polygon points="450,160 590,210 450,260 310,210" fill="#ebf4ff" stroke="#2b6cb0" stroke-width="2" filter="url(#shadow)"/>
+                <text class="lbl lbl-b lbl-dark" x="450" y="205">Bước 3: Đánh giá tổng thể</text>
+                <text class="lbl lbl-s lbl-dark" x="450" y="220">Đủ? Đưa ra? Bổ sung?</text>
 
-                <!-- Nhánh DỪNG -->
-                <line class="conn" x1="530" y1="195" x2="660" y2="195"/>
-                <text class="edge-lbl" x="580" y="188">Đủ</text>
-                <rect class="box" x="660" y="175" width="130" height="40" fill="#e53e3e"/>
-                <text class="lbl lbl-b" x="725" y="193">⬛ DỪNG</text>
-                <text class="lbl lbl-s" x="725" y="207">Báo cáo Vụ TCCB</text>
+                <!-- Nhánh A: DỪNG (sang phải) -->
+                <line class="conn" x1="590" y1="210" x2="720" y2="210"/>
+                <text class="edge-lbl" x="645" y="202">(A) Đủ + Không đưa ra</text>
+                <rect class="box" x="720" y="190" width="150" height="40" fill="#e53e3e"/>
+                <text class="lbl lbl-b" x="795" y="208">⬛ DỪNG</text>
+                <text class="lbl lbl-s" x="795" y="222">Báo cáo rà soát</text>
 
-                <!-- Nhánh tiếp tục -->
-                <line class="conn" x1="400" y1="240" x2="400" y2="270"/>
-                <text class="edge-lbl" x="420" y="258">Thiếu</text>
+                <!-- Nhánh B: Có đưa ra, Đủ (sang trái) -->
+                <line class="conn" x1="310" y1="210" x2="150" y2="210"/>
+                <text class="edge-lbl" x="230" y="202">(B) Có đưa ra, Đủ</text>
+                <polyline class="conn" points="150,210 150,370 260,370" style="marker-end:url(#arrow)"/>
+                <rect class="box" x="55" y="230" width="190" height="56" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="150" y="250">Bước 4B: Họp LĐ Vụ</text>
+                <text class="lbl lbl-s" x="150" y="266">Tờ trình BC rà soát</text>
+                <text class="lbl lbl-s" x="150" y="278">+ Xin chủ trương đưa ra</text>
 
-                <!-- Bước 4 -->
-                <rect class="box" x="220" y="270" width="360" height="60" fill="url(#gBlue)"/>
-                <text class="lbl lbl-b" x="400" y="292">Bước 4: Họp LĐ Vụ + Lọc nguồn CC</text>
-                <text class="lbl lbl-s" x="400" y="308">VT ký Tờ trình gửi Bộ xin phê duyệt chủ trương</text>
-                <text class="lbl lbl-s" x="400" y="322">(qua Vụ TCCB)</text>
-                <line class="conn" x1="400" y1="330" x2="400" y2="355"/>
+                <!-- Nhánh C: Cần bổ sung (xuống dưới) -->
+                <line class="conn" x1="450" y1="260" x2="450" y2="290"/>
+                <text class="edge-lbl" x="520" y="280">(C) Cần bổ sung (± đưa ra)</text>
+                <rect class="box" x="290" y="290" width="320" height="56" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="450" y="310">Bước 4C: Họp LĐ Vụ</text>
+                <text class="lbl lbl-s" x="450" y="326">Tờ trình BC rà soát</text>
+                <text class="lbl lbl-s" x="450" y="338">+ Xin chủ trương đưa ra + bổ sung</text>
+                <line class="conn" x1="450" y1="346" x2="450" y2="370"/>
 
-                <!-- Chờ phê duyệt (Stadium shape) -->
-                <rect class="box" x="260" y="355" width="280" height="44" rx="22" fill="#ed8936"/>
-                <text class="lbl lbl-b" x="400" y="374">⏳ Chờ Bộ trưởng phê duyệt</text>
-                <text class="lbl lbl-s" x="400" y="390">chủ trương (qua Vụ TCCB)</text>
-                <line class="conn" x1="400" y1="399" x2="400" y2="425"/>
+                <!-- Cổng chờ phê duyệt (gộp B+C) -->
+                <rect class="box" x="260" y="370" width="380" height="44" rx="22" fill="#ed8936"/>
+                <text class="lbl lbl-b" x="450" y="390">⏳ Chờ phê duyệt chủ trương</text>
+                <text class="lbl lbl-s" x="450" y="405">(Bộ trưởng qua Vụ TCCB)</text>
+                <line class="conn" x1="450" y1="414" x2="450" y2="440"/>
 
-                <!-- Bước 5 (CÔNG BỐ - blue) -->
-                <rect class="box" x="220" y="425" width="360" height="64" fill="url(#gBlue)"/>
-                <text class="lbl lbl-b" x="400" y="445">Bước 5: HN LĐ Vụ lần 1</text>
-                <text class="lbl lbl-s" x="400" y="461">Đưa ra &gt;50% triệu tập · Định hướng ≥30%</text>
-                <text class="lbl lbl-s" x="400" y="477">✅ CÔNG BỐ</text>
-                <line class="conn" x1="400" y1="489" x2="400" y2="515"/>
+                <!-- Bước 5 -->
+                <rect class="box" x="270" y="440" width="360" height="64" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="450" y="460">Bước 5: HN LĐ Vụ lần 1</text>
+                <text class="lbl lbl-s" x="450" y="476">• Đưa ra &gt;50% triệu tập • Định hướng ≥30%</text>
+                <text class="lbl lbl-s" x="450" y="492">✅ CÔNG BỐ</text>
+                <line class="conn" x1="450" y1="504" x2="450" y2="530"/>
 
-                <!-- Bước 6 (KHÔNG công bố - gray) -->
-                <rect class="box" x="220" y="515" width="360" height="56" fill="url(#gGray)"/>
-                <text class="lbl lbl-b" x="400" y="535">Bước 6: HN Cán bộ chủ chốt</text>
-                <text class="lbl lbl-s" x="400" y="551">Giới thiệu &gt;50% có mặt · ❌ Không công bố</text>
-                <text class="lbl lbl-s" x="400" y="563"></text>
-                <line class="conn" x1="400" y1="571" x2="400" y2="597"/>
+                <!-- Nút kiểm tra sau Bước 5 (Diamond) -->
+                <polygon points="450,530 560,565 450,600 340,565" fill="#fefcbf" stroke="#d69e2e" stroke-width="2" filter="url(#shadow)"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#744210; text-anchor:middle; font-weight:700;" x="450" y="562">Sau Bước 5:</text>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#744210; text-anchor:middle;" x="450" y="578">Cần bổ sung?</text>
 
-                <!-- Bước 7 (KHÔNG công bố - gray) -->
-                <rect class="box" x="220" y="597" width="360" height="56" fill="url(#gGray)"/>
-                <text class="lbl lbl-b" x="400" y="617">Bước 7: HN LĐ mở rộng</text>
-                <text class="lbl lbl-s" x="400" y="633">Giới thiệu &gt;50% có mặt · ❌ Không công bố</text>
-                <line class="conn" x1="400" y1="653" x2="400" y2="679"/>
+                <!-- Nhánh KHÔNG bổ sung → QĐ đưa ra -->
+                <line class="conn" x1="560" y1="565" x2="700" y2="565"/>
+                <text class="edge-lbl" x="625" y="557">Không</text>
+                <rect class="box" x="700" y="545" width="170" height="44" fill="url(#gGreen)"/>
+                <text class="lbl lbl-b" x="785" y="563">📄 QĐ đưa ra</text>
+                <text class="lbl lbl-s" x="785" y="579">(Mẫu 08) → Báo cáo Vụ TCCB</text>
 
-                <!-- Bước 8 (CÔNG BỐ - blue) -->
-                <rect class="box" x="220" y="679" width="360" height="64" fill="url(#gBlue)"/>
-                <text class="lbl lbl-b" x="400" y="699">Bước 8: HN LĐ Vụ lần 2</text>
-                <text class="lbl lbl-s" x="400" y="715">Biểu quyết &gt;50% triệu tập · Lấy từ trên xuống</text>
-                <text class="lbl lbl-s" x="400" y="731">✅ CÔNG BỐ</text>
-                <line class="conn" x1="400" y1="743" x2="400" y2="769"/>
+                <!-- Nhánh CÓ bổ sung → tiếp tục -->
+                <line class="conn" x1="450" y1="600" x2="450" y2="630"/>
+                <text class="edge-lbl" x="470" y="620">Có</text>
+
+                <!-- Bước 6 -->
+                <rect class="box" x="270" y="630" width="360" height="56" fill="url(#gGray)"/>
+                <text class="lbl lbl-b" x="450" y="650">Bước 6: HN Cán bộ chủ chốt</text>
+                <text class="lbl lbl-s" x="450" y="666">Giới thiệu &gt;50% có mặt · ❌ Không công bố</text>
+                <line class="conn" x1="450" y1="686" x2="450" y2="712"/>
+
+                <!-- Bước 7 -->
+                <rect class="box" x="270" y="712" width="360" height="56" fill="url(#gGray)"/>
+                <text class="lbl lbl-b" x="450" y="732">Bước 7: HN LĐ mở rộng</text>
+                <text class="lbl lbl-s" x="450" y="748">Giới thiệu &gt;50% có mặt · ❌ Không công bố</text>
+                <line class="conn" x1="450" y1="768" x2="450" y2="794"/>
+
+                <!-- Bước 8 -->
+                <rect class="box" x="270" y="794" width="360" height="64" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="450" y="814">Bước 8: HN LĐ Vụ lần 2</text>
+                <text class="lbl lbl-s" x="450" y="830">Biểu quyết &gt;50% triệu tập · Lấy từ trên xuống</text>
+                <text class="lbl lbl-s" x="450" y="846">✅ CÔNG BỐ</text>
+                <line class="conn" x1="450" y1="858" x2="450" y2="884"/>
 
                 <!-- Bước 9 -->
-                <rect class="box" x="250" y="769" width="300" height="48" fill="url(#gBlue)"/>
-                <text class="lbl lbl-b" x="400" y="789">Bước 9</text>
-                <text class="lbl lbl-s" x="400" y="805">Lập hồ sơ trình Vụ TCCB</text>
-                <line class="conn" x1="400" y1="817" x2="400" y2="843"/>
+                <rect class="box" x="300" y="884" width="300" height="48" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="450" y="904">Bước 9</text>
+                <text class="lbl lbl-s" x="450" y="920">Lập hồ sơ trình Vụ TCCB</text>
+                <line class="conn" x1="450" y1="932" x2="450" y2="958"/>
 
                 <!-- Bước 10 -->
-                <rect class="box" x="250" y="843" width="300" height="48" fill="url(#gBlue)"/>
-                <text class="lbl lbl-b" x="400" y="863">Bước 10</text>
-                <text class="lbl lbl-s" x="400" y="879">Công khai &amp; Triển khai sau phê duyệt</text>
+                <rect class="box" x="300" y="958" width="300" height="48" fill="url(#gBlue)"/>
+                <text class="lbl lbl-b" x="450" y="978">Bước 10</text>
+                <text class="lbl lbl-s" x="450" y="994">Công khai &amp; Triển khai</text>
 
                 <!-- Legend -->
-                <rect x="20" y="940" width="16" height="16" rx="3" fill="#2b6cb0"/>
-                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="42" y="953">Bước có CÔNG BỐ kết quả</text>
-                <rect x="220" y="940" width="16" height="16" rx="3" fill="#4a5568"/>
-                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="242" y="953">Bước KHÔNG công bố</text>
-                <rect x="420" y="940" width="16" height="16" rx="10" fill="#ed8936"/>
-                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="442" y="953">Cổng chờ phê duyệt</text>
-                <rect x="620" y="940" width="16" height="16" rx="3" fill="#e53e3e"/>
-                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="642" y="953">Dừng quy trình</text>
+                <rect x="20" y="1060" width="16" height="16" rx="3" fill="#2b6cb0"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="42" y="1073">Bước có CÔNG BỐ</text>
+                <rect x="200" y="1060" width="16" height="16" rx="3" fill="#4a5568"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="222" y="1073">KHÔNG công bố</text>
+                <rect x="380" y="1060" width="16" height="16" rx="10" fill="#ed8936"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="402" y="1073">Chờ phê duyệt</text>
+                <rect x="530" y="1060" width="16" height="16" rx="3" fill="#e53e3e"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="552" y="1073">Dừng quy trình</text>
+                <rect x="680" y="1060" width="16" height="16" rx="3" fill="#38a169"/>
+                <text style="font-family:Inter,sans-serif; font-size:11px; fill:#4a5568;" x="702" y="1073">QĐ đưa ra</text>
             </svg>
         </div>
     </div>
